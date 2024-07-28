@@ -32,6 +32,7 @@
             listbxData = new ListBox();
             btnRun = new Button();
             btnReset = new Button();
+            btnRemoveNumber = new Button();
             SuspendLayout();
             // 
             // btnSelectFile
@@ -65,7 +66,7 @@
             // 
             // btnReset
             // 
-            btnReset.Location = new Point(563, 157);
+            btnReset.Location = new Point(563, 219);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(152, 23);
             btnReset.TabIndex = 3;
@@ -73,11 +74,22 @@
             btnReset.UseVisualStyleBackColor = true;
             btnReset.Click += btnReset_Click;
             // 
+            // btnRemoveNumber
+            // 
+            btnRemoveNumber.Location = new Point(563, 162);
+            btnRemoveNumber.Name = "btnRemoveNumber";
+            btnRemoveNumber.Size = new Size(152, 23);
+            btnRemoveNumber.TabIndex = 4;
+            btnRemoveNumber.Text = "Remove Number";
+            btnRemoveNumber.UseVisualStyleBackColor = true;
+            btnRemoveNumber.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnRemoveNumber);
             Controls.Add(btnReset);
             Controls.Add(btnRun);
             Controls.Add(listbxData);
@@ -94,5 +106,6 @@
         private ListBox listbxData;
         private Button btnRun;
         private Button btnReset;
+        private Button btnRemoveNumber;
     }
 }

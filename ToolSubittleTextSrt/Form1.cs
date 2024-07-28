@@ -93,5 +93,33 @@ namespace ToolSubittleTextSrt
         {
             listbxData.Items.Clear();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            foreach (string filePath in listbxData.Items)
+            {
+                string[] lines = File.ReadAllLines(filePath, Encoding.UTF8);
+                StringBuilder sb = new StringBuilder();
+                Regex regexExtraNumber = new Regex(@"^\d+$");
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (regexExtraNumber.IsMatch(lines[i]) && i > 0 && string.IsNullOrWhiteSpace(lines[i - 1]) == false)
+                    {
+                        // Skip this line as it's an extraneous number after a subtitle text
+                        continue;
+                    }
+                    else
+                    {
+                        sb.AppendLine(lines[i]);
+                    }
+                }
+
+                File.WriteAllText(filePath, sb.ToString().Trim());
+            }
+
+            MessageBox.Show("Extra numbers removed!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            listbxData.Items.Clear();
+        }
     }
 }
