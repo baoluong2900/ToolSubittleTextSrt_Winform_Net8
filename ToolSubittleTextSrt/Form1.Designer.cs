@@ -33,6 +33,7 @@
             btnRun = new Button();
             btnReset = new Button();
             btnRemoveNumber = new Button();
+            btnDeleteMutilveFile = new Button();
             SuspendLayout();
             // 
             // btnSelectFile
@@ -84,11 +85,22 @@
             btnRemoveNumber.UseVisualStyleBackColor = true;
             btnRemoveNumber.Click += button1_Click;
             // 
+            // btnDeleteMutilveFile
+            // 
+            btnDeleteMutilveFile.Location = new Point(563, 276);
+            btnDeleteMutilveFile.Name = "btnDeleteMutilveFile";
+            btnDeleteMutilveFile.Size = new Size(152, 23);
+            btnDeleteMutilveFile.TabIndex = 5;
+            btnDeleteMutilveFile.Text = "Delete File";
+            btnDeleteMutilveFile.UseVisualStyleBackColor = true;
+            btnDeleteMutilveFile.Click += btnDeleteMutilveFile_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDeleteMutilveFile);
             Controls.Add(btnRemoveNumber);
             Controls.Add(btnReset);
             Controls.Add(btnRun);
@@ -107,5 +119,6 @@
         private Button btnRun;
         private Button btnReset;
         private Button btnRemoveNumber;
+        private Button btnDeleteMutilveFile;
     }
 }

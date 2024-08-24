@@ -1,5 +1,5 @@
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Text;
 
 namespace ToolSubittleTextSrt
 {
@@ -12,14 +12,13 @@ namespace ToolSubittleTextSrt
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
         }
 
         private void btnSelectFile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Subtitle files (*.srt)|*.srt";
+                openFileDialog.Filter = "Subtitle files (*.srt;*.vtt)|*.srt;*.vtt";
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -120,6 +119,41 @@ namespace ToolSubittleTextSrt
 
             MessageBox.Show("Extra numbers removed!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             listbxData.Items.Clear();
+        }
+
+        private void btnDeleteMutilveFile_Click(object sender, EventArgs e)
+        {
+            // Danh sách các điều kiện giữ lại file
+            var keepConditions = new List<string>
+            {
+                "English",
+                "Vietnamese"
+            };
+
+            // Duyệt qua danh sách các file trong ListBox
+            for (int i = listbxData.Items.Count - 1; i >= 0; i--)
+            {
+                string fileName = listbxData.Items[i].ToString();
+
+                // Kiểm tra nếu file không chứa các từ khóa cần giữ lại
+                bool shouldDelete = !keepConditions.Any(condition => fileName.Contains(condition, StringComparison.OrdinalIgnoreCase));
+
+                if (shouldDelete)
+                {
+                    try
+                    {
+                        // Xóa file
+                        File.Delete(fileName);
+                        // Xóa file khỏi ListBox sau khi xóa thành công
+                        listbxData.Items.RemoveAt(i);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hiển thị thông báo lỗi nếu xảy ra vấn đề khi xóa file
+                        MessageBox.Show($"Error deleting file: {fileName}\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }
