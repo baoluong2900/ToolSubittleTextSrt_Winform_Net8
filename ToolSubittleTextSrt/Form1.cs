@@ -10,7 +10,7 @@ namespace ToolSubittleTextSrt
         {
             InitializeComponent();
 
-            // Gán sự kiện cho ListBox
+            // Assign events to ListBox
             listbxData.DragEnter += listbxData_DragEnter;
             listbxData.DragDrop += listbxData_DragEnter;
         }
@@ -128,33 +128,33 @@ namespace ToolSubittleTextSrt
 
         private void btnDeleteMutilveFile_Click(object sender, EventArgs e)
         {
-            // Danh sách các điều kiện giữ lại file
+            // List of conditions to keep files
             var keepConditions = new List<string>
-            {
-                "English",
-                "Vietnamese"
-            };
+                {
+                    "English",
+                    "Vietnamese"
+                };
 
-            // Duyệt qua danh sách các file trong ListBox
+            // Iterate through the list of files in ListBox
             for (int i = listbxData.Items.Count - 1; i >= 0; i--)
             {
                 string fileName = listbxData.Items[i].ToString();
 
-                // Kiểm tra nếu file không chứa các từ khóa cần giữ lại
+                // Check if the file does not contain the keywords to keep
                 bool shouldDelete = !keepConditions.Any(condition => fileName.Contains(condition, StringComparison.OrdinalIgnoreCase));
 
                 if (shouldDelete)
                 {
                     try
                     {
-                        // Xóa file
+                        // Delete file
                         File.Delete(fileName);
-                        // Xóa file khỏi ListBox sau khi xóa thành công
+                        // Remove file from ListBox after successful deletion
                         listbxData.Items.RemoveAt(i);
                     }
                     catch (Exception ex)
                     {
-                        // Hiển thị thông báo lỗi nếu xảy ra vấn đề khi xóa file
+                        // Display error message if there is an issue deleting the file
                         MessageBox.Show($"Error deleting file: {fileName}\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -163,10 +163,10 @@ namespace ToolSubittleTextSrt
 
         private void listbxData_DragDrop(object sender, DragEventArgs e)
         {
-            // Lấy danh sách tệp được kéo vào
+            // Get the list of files being dragged in
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            // Thêm các tệp vào ListBox
+            // Add the files to ListBox
             foreach (var file in files)
             {
                 listbxData.Items.Add(file);
@@ -175,14 +175,14 @@ namespace ToolSubittleTextSrt
 
         private void listbxData_DragEnter(object sender, DragEventArgs e)
         {
-            // Kiểm tra xem dữ liệu có phải là tệp hay không
+            // Check if the data is a file
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                e.Effect = DragDropEffects.Copy; // Cho phép thả tệp
+                e.Effect = DragDropEffects.Copy; // Allow file drop
             }
             else
             {
-                e.Effect = DragDropEffects.None; // Không cho phép thả
+                e.Effect = DragDropEffects.None; // Do not allow drop
             }
         }
     }
