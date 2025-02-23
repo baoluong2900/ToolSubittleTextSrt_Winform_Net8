@@ -48,12 +48,15 @@
             // 
             // listbxData
             // 
+            listbxData.AllowDrop = true;
             listbxData.FormattingEnabled = true;
             listbxData.ItemHeight = 15;
             listbxData.Location = new Point(50, 48);
             listbxData.Name = "listbxData";
             listbxData.Size = new Size(461, 379);
             listbxData.TabIndex = 1;
+            listbxData.DragDrop += listbxData_DragDrop;
+            listbxData.DragEnter += listbxData_DragEnter;
             // 
             // btnRun
             // 

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace ToolSubittleTextSrt
 {
@@ -8,6 +9,10 @@ namespace ToolSubittleTextSrt
         public Form1()
         {
             InitializeComponent();
+
+            // Gán sự kiện cho ListBox
+            listbxData.DragEnter += listbxData_DragEnter;
+            listbxData.DragDrop += listbxData_DragEnter;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -153,6 +158,31 @@ namespace ToolSubittleTextSrt
                         MessageBox.Show($"Error deleting file: {fileName}\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+        }
+
+        private void listbxData_DragDrop(object sender, DragEventArgs e)
+        {
+            // Lấy danh sách tệp được kéo vào
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            // Thêm các tệp vào ListBox
+            foreach (var file in files)
+            {
+                listbxData.Items.Add(file);
+            }
+        }
+
+        private void listbxData_DragEnter(object sender, DragEventArgs e)
+        {
+            // Kiểm tra xem dữ liệu có phải là tệp hay không
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy; // Cho phép thả tệp
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None; // Không cho phép thả
             }
         }
     }
